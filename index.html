@@ -49,6 +49,18 @@
       if(item.textContent==='리워드') showToast('리워드 교환은 2,000P부터 이용할 수 있어요.');
       if(item.textContent==='홈') window.scrollTo({top:0,behavior:'smooth'});
     }));
+    const profileBox=document.querySelector('#profile');
+    const nameLabel=document.querySelector('#nickname');
+    const editButton=document.createElement('button');
+    editButton.type='button'; editButton.textContent='수정';
+    editButton.style.cssText='border:0;background:#edf5f2;color:#0d8a83;border-radius:8px;padding:6px 8px;font-size:11px;font-weight:900;cursor:pointer';
+    profileBox.appendChild(editButton);
+    editButton.addEventListener('click',()=>{
+      const input=document.createElement('input'); input.value=nameLabel.textContent.replace('님',''); input.style.cssText='width:82px;border:1px solid #a8ddd0;border-radius:7px;padding:6px;font-size:12px';
+      nameLabel.replaceWith(input); input.focus();
+      const save=()=>{const value=input.value.trim()||'김바다';nameLabel.textContent=value+'님';input.replaceWith(nameLabel);try{localStorage.setItem('padoNickname',value)}catch(e){}showToast('닉네임이 변경됐어요.');};
+      input.addEventListener('keydown',e=>{if(e.key==='Enter')save()}); input.addEventListener('blur',save);
+    });
   </script>
 </body>
 </html>
